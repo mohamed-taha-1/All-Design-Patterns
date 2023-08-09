@@ -1,23 +1,27 @@
 package designPatterns.behavioural.chain_of_resposability.example2;
 
 public abstract class Logger {
-	protected Logger nextLogger;
 	protected LogLevel level;
+    protected Logger nextLogger;
 
-	public void setNextLogger(Logger nextLogger) {
-		this.nextLogger = nextLogger;
-	}
+    public Logger(LogLevel level) {
+        this.level = level;
+    }
 
-	public void logMessage(LogLevel level, String message) {
-		if (this.level.ordinal() <= level.ordinal()) {
-			writeLog(message);
-		}
-		if (nextLogger != null) {
-			nextLogger.logMessage(level, message);
-		}
-	}
+    public void setNextLogger(Logger nextLogger) {
+        this.nextLogger = nextLogger;
+    }
 
-	protected abstract void writeLog(String message);
+    public void logMessage(LogLevel messageLevel, String message) {
+        if (level.ordinal() <= messageLevel.ordinal()) {
+            writeMessage(message);
+        }
+        if (nextLogger != null) {
+            nextLogger.logMessage(messageLevel, message);
+        }
+    }
+
+    protected abstract void writeMessage(String message);
 
 }
 

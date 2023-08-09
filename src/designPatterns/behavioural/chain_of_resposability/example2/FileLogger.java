@@ -1,13 +1,25 @@
 package designPatterns.behavioural.chain_of_resposability.example2;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class FileLogger extends Logger {
-	public FileLogger(LogLevel level) {
-		this.level = level;
+	private String logFileName;
+
+	public FileLogger(LogLevel level, String logFileName) {
+		super(level);
+		this.logFileName = logFileName;
 	}
 
 	@Override
-	protected void writeLog(String message) {
-		System.out.println("File Logger: " + message);
+	protected void writeMessage(String message) {
+		try {
+			FileWriter writer = new FileWriter(logFileName, true);
+			writer.write("File Logger: " + message + "\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

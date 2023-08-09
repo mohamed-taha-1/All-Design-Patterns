@@ -41,22 +41,23 @@ public class Demo {
 		manager.approveRequest(request1);
 		manager.approveRequest(request2);
 		manager.approveRequest(request3);
-		
+
 		/*
-		 * ----------------------- EXAMPLE 2 ----------------------------- 
+		 * ----------------------- EXAMPLE 2 -----------------------------
 		 */
-		
+
 		System.out.println("---------------- *********** --------------");
 		Logger consoleLogger = new ConsoleLogger(LogLevel.INFO);
-        Logger fileLogger = new FileLogger(LogLevel.WARNING);
-        Logger emailLogger = new EmailLogger(LogLevel.ERROR);
+		Logger fileLogger = new FileLogger(LogLevel.WARNING, "log.txt"); // -- please refresh your working directory to
+																			// see the log.txt
+		Logger emailLogger = new EmailLogger(LogLevel.ERROR, "mohamed@example.com");
 
-        consoleLogger.setNextLogger(fileLogger);
-        fileLogger.setNextLogger(emailLogger);
+		consoleLogger.setNextLogger(fileLogger);
+		fileLogger.setNextLogger(emailLogger);
 
-        consoleLogger.logMessage(LogLevel.INFO, "This is an information message.");
-        consoleLogger.logMessage(LogLevel.WARNING, "This is a warning message.");
-        consoleLogger.logMessage(LogLevel.ERROR, "This is an error message.");
+		consoleLogger.logMessage(LogLevel.INFO, "This is an information message.");
+		consoleLogger.logMessage(LogLevel.WARNING, "This is a warning message.");
+		consoleLogger.logMessage(LogLevel.ERROR, "This is an error message.");
 
 	}
 
